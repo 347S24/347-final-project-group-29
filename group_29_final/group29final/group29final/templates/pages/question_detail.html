@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Question Detail</title>
+</head>
+<body>
+    <h1>Question Detail</h1>
+    <h2>{{ question.text }}</h2>
+    <img src="{{ qr_code_url }}" alt="QR Code">
+    <a href="{% url 'student_answer_submission' question.id %}">Submit Answer</a>
+    <br>
+    <a href="{% url 'teacher_home' %}">Back to Teacher Homepage</a>
+</body>
+</html>
