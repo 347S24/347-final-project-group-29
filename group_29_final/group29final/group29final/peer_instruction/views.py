@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .group29final.group29final.models import Question
-from .group29final.group29final.forms import QuestionForm
+from peer_instruction.models import Question
+from peer_instruction.forms import QuestionForm
 
 
 def teacher_home(request):
