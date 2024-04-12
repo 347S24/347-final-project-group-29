@@ -8,9 +8,15 @@
     <h1>Welcome, Teacher!</h1>
     <h2>Your Questions:</h2>
     <ul>
-        {% for question in questions %}
-            <li>{{ question.text }} <a href="{% url 'question_detail' question.id %}">View Question</a></li>
-        {% endfor %}
+        {% if questions %}
+            {% for question in questions %}
+                <li>
+                    {{ question.text }} <a href="{% url 'question_detail' question.id %}">View Question</a>
+                </li>
+            {% endfor %}
+        {% else %}
+            <p>There are no questions stored.</p>
+        {% endif %}
     </ul>
     <a href="{% url 'add_question' %}">Add Question</a>
 </body>

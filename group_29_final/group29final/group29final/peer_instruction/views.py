@@ -1,12 +1,14 @@
+from django.views import generic
 from django.shortcuts import render, redirect
 from peer_instruction.models import Question
 from peer_instruction.forms import QuestionForm
 
 
-def teacher_home(request):
-    questions = Question.objects.all()
-    return render(request, 'teacher_home.html', {'questions': questions})
-
+def QuestionList(generic.ListView):
+    def get(self, request, *args, **kwargs):
+        questions = Question.objects.all()    
+        return render(request, 'teacher_home.html', {'questions': questions})
+    
 
 def add_question(request):
     if request.method == 'POST':
