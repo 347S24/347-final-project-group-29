@@ -28,10 +28,10 @@ def add_question(request):
     return render(request, 'add_question.html', {'form': form})
 
 
-# def question_detail(request, question_id):
-#     question = Question.objects.get(pk=question_id)
-#     qr_code_url = generate_qr_code_url(question.text)  # need to implement this 
-#     return render(request, 'question_detail.html', {'question': question, 'qr_code_url': qr_code_url})
+def question_detail(request, question_id):
+    question = Question.objects.get(pk=question_id)
+    qr_code_url = generate_qr_code_url(question.text)  # need to implement this 
+    return render(request, 'question_detail.html', {'question': question, 'qr_code_url': qr_code_url})
 
 
 def student_answer_submission(request, question_id):
