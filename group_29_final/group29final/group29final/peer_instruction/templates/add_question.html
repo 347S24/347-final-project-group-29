@@ -9,7 +9,7 @@
     <form action="{% url 'add_question' %}" method="post">
         {% csrf_token %}
         <label for="question_text">Question:</label><br>
-        <input type="text" id="question_text" name="question_text"><br>
+        <input type="text" id="question_text" name="text"><br>
         <input type="submit" value="Submit">
     </form>
 
