@@ -3,6 +3,9 @@ from django.views.generic import ListView
 from django.shortcuts import render, redirect
 from peer_instruction.models import Question
 from peer_instruction.forms import QuestionForm
+import qrcode
+from io import BytesIO
+from django.core.files import File
 
 
 def teacher_home(request):
@@ -37,3 +40,19 @@ def question_detail(request, question_id):
 def student_answer_submission(request, question_id):
     #  student answer submission  here
     pass
+
+def generate_qr_code_url(text):
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(text)
+    qr.make(fit=True)
+    img = qr.make_image(fill='black', back_color='white')
+    buffer = BytesIO()
+    img.save(buffer)
+    filename = 'qr_codes/qr-{}.png'.format(text[:10])  # You should ensure this is unique
+    filebuffer = File(buffer, name=filename)
+    return filebuffer.url
