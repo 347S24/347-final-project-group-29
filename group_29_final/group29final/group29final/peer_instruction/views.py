@@ -33,8 +33,8 @@ def add_question(request):
 
 def question_detail(request, question_id):
     question = Question.objects.get(pk=question_id)
-    # qr_code_url = generate_qr_code_url(question.text)  # need to implement this 
-    return render(request, 'question_detail.html', {'question': question})
+    qr_code_url = generate_qr_code_url(question.text)
+    return render(request, 'question_detail.html', {'question': question, 'qr_code_url':qr_code_url })
 
 
 # def generate_qr_code_url(data):
