@@ -53,6 +53,6 @@ def generate_qr_code_url(text):
     img = qr.make_image(fill='black', back_color='white')
     buffer = BytesIO()
     img.save(buffer)
-    filename = 'qr_codes/qr-{}.png'.format(text[:10])  # You should ensure this is unique
+    filename = 'qr_codes/qr-{}.png'.format(text[:10])
     filebuffer = File(buffer, name=filename)
     return filebuffer.url
