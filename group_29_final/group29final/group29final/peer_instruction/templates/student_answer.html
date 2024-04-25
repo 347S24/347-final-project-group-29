@@ -1,0 +1,22 @@
+<!-- Where the student will answer the question the teacher has asked -->
+<!-- Will store the answer to the database -->
+<!-- Won't show the answer because that is for a separte page -->
+<!-- Once submitted take the student to a thanks for answering page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Answer</title>
+</head>
+<body>
+    <h1>Student Answer</h1>
+    <h2>{{ question.text }}</h2>
+    <form action="{% url 'submit_answer' question.id %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="answer" required>
+        <input type="submit" value="Submit Answer">
+    </form>
+    <p>Answer the question above. Once you have answered the question you can exit the page.</p>
+</body>
+
+</html>
