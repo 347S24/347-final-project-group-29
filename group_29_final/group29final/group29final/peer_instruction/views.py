@@ -60,9 +60,6 @@ def question_detail(request, question_id):
 
 
 def generate_qr_code_url(request, question_id):
-    # Get the full URL for the question detail view
-    # full_url = request.build_absolute_uri(reverse('question_detail', args=[question_id]))
-
     submission_url = reverse('student_answer', args=[question_id])
     full_url = request.build_absolute_uri(submission_url)
 
@@ -79,23 +76,21 @@ def generate_qr_code_url(request, question_id):
     qr.make(fit=True)
     img = qr.make_image(fill='black', back_color='white')
 
-    # Save the image to a BytesIO stream and prepare it for HTTP response
     buffer = BytesIO()
     img.save(buffer, format='PNG')
     buffer.seek(0)
     
-    # Return the QR code as an image response
     response = HttpResponse(buffer.getvalue(), content_type='image/png')
     response['Content-Disposition'] = 'inline; filename="qr_code.png"'
     
-    filename = 'qr_code.png'
-    # Specify the path to your desktop folder
-    desktop_path = os.path.expanduser("~/Desktop")
-    # Join the desktop path with the filename
-    filepath = os.path.join(desktop_path, filename)
-    # Save the image to the specified filepath
-    img.save(filepath)
-    print("QR code image saved to:", filepath)
+    # filename = 'qr_code.png'
+    # # Specify the path to your desktop folder
+    # desktop_path = os.path.expanduser("~/Desktop")
+    # # Join the desktop path with the filename
+    # filepath = os.path.join(desktop_path, filename)
+    # # Save the image to the specified filepath
+    # img.save(filepath)
+    # print("QR code image saved to:", filepath)
 
     return response
 
