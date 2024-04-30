@@ -11,9 +11,12 @@
 <body>
     <h1>Student Answer</h1>
     <h2>{{ question.text }}</h2>
-    <form action="{% url 'submit_answer' question.id %}" method="post">
+    <form action="{% url 'thanks_page' %}" method="post">
         {% csrf_token %}
-        <input type="text" name="answer" required>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+        <label for="answer">Answer:</label>
+        <input type="text" id="answer" name="answer" required><br>
         <input type="submit" value="Submit Answer">
     </form>
     <p>Answer the question above. Once you have answered the question you can exit the page.</p>

@@ -1,20 +1,21 @@
-{% extends "base.html" %}
-
 {% load crispy_forms_tags %}
 
-{% block title %}
+<!-- {% block title %}
   {{ user.username }}'s Dashboard
-{% endblock title %}
+{% endblock title %} -->
 
 {% block content %}
-  <h1>Welcome, {{ user.username }}</h1>
+  <!-- <h1>Welcome, {{ user.username }}</h1> -->
   <div style="margin-top: 20px;">
-    {% for answer, count in answers %}
-      <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f8f8f8;">
-        <strong>{{ answer }}</strong> (submitted {{ count }} times)
-      </div>
-    {% empty %}
+    {% if answers %}
+      {% for answer, count in answers %}
+        <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f8f8f8;">
+          <strong>{{ answer }}</strong> (submitted {{ count }} times)
+        </div>
+      {% endfor %}
+    {% else %}
       <p>No answers have been submitted yet.</p>
-    {% endfor %}
+    {% endif %}
   </div>
 {% endblock content %}
+<a href="{% url 'teacher_home' %}">Back to Teacher Homepage</a>

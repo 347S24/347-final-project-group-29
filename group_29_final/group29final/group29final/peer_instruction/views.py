@@ -1,7 +1,8 @@
+import os
 from django.views import generic
 from django.views.generic import ListView
 from django.shortcuts import render, redirect
-from peer_instruction.models import Question
+from peer_instruction.models import Question, Answer
 from peer_instruction.forms import QuestionForm
 import qrcode
 from io import BytesIO
@@ -58,14 +59,15 @@ def question_detail(request, question_id):
 #     return qr_code_url
 
 
-def student_answer_submission(request, question_id):
-    #  student answer submission  here
-    pass
-
 def generate_qr_code_url(request, question_id):
     # Get the full URL for the question detail view
-    full_url = request.build_absolute_uri(reverse('question_detail', args=[question_id]))
-    
+    # full_url = request.build_absolute_uri(reverse('question_detail', args=[question_id]))
+
+    submission_url = reverse('student_answer', args=[question_id])
+    full_url = request.build_absolute_uri(submission_url)
+
+    print("Full URL:", full_url)
+
     # Generate QR code
     qr = qrcode.QRCode(
         version=1,
@@ -85,4 +87,32 @@ def generate_qr_code_url(request, question_id):
     # Return the QR code as an image response
     response = HttpResponse(buffer.getvalue(), content_type='image/png')
     response['Content-Disposition'] = 'inline; filename="qr_code.png"'
+    
+    filename = 'qr_code.png'
+    # Specify the path to your desktop folder
+    desktop_path = os.path.expanduser("~/Desktop")
+    # Join the desktop path with the filename
+    filepath = os.path.join(desktop_path, filename)
+    # Save the image to the specified filepath
+    img.save(filepath)
+    print("QR code image saved to:", filepath)
+
     return response
+
+
+def view_answers(request):
+    # Retrieve all answers from the database
+    answers = Answer.objects.all()
+    context = {'answers': answers}
+    return render(request, 'view_answers.html', context)
+
+
+def student_answer(request, question_id):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        answer_text = request.POST.get('answer')
+        answer = Answer(username=username, answer_text=answer_text, question_id=question_id)
+        answer.save()
+        return redirect('thanks_page')
+    else:
+        return render(request, 'student_answer.html', {'question_id': question_id})
