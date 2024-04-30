@@ -7,7 +7,7 @@
 <body>
     <h1>Question Detail</h1>
     <h2>{{ question.text }}</h2>
-    <img src="{{ qr_code_url }}" alt="QR Code">
+    <img src="{{ qr_code_image }}" alt="QR Code for this question" style="width:150px;height:150px;">
     <a href="{% url 'teacher_home' %}">Back to Teacher Homepage</a>
 </body>
 </html>

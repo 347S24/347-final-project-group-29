@@ -6,6 +6,9 @@ from peer_instruction.forms import QuestionForm
 import qrcode
 from io import BytesIO
 from django.core.files import File
+from django.shortcuts import get_object_or_404
+from django.urls import reverse
+from django.http import HttpResponse
 
 
 def teacher_home(request):
@@ -32,10 +35,9 @@ def add_question(request):
 
 
 def question_detail(request, question_id):
-    question = Question.objects.get(pk=question_id)
-    qr_code_url = generate_qr_code_url(question.text)
-    return render(request, 'question_detail.html', {'question': question, 'qr_code_url':qr_code_url })
-
+    question = get_object_or_404(Question, pk=question_id)
+    qr_code_url = generate_qr_code_url(request, question_id)  # This now points to a static URL
+    return render(request, 'question_detail.html', {'question': question, 'qr_code_url': qr_code_url})
 
 # def generate_qr_code_url(data):
 #     # Generate the QR code image
@@ -60,18 +62,27 @@ def student_answer_submission(request, question_id):
     #  student answer submission  here
     pass
 
-def generate_qr_code_url(text):
+def generate_qr_code_url(request, question_id):
+    # Get the full URL for the question detail view
+    full_url = request.build_absolute_uri(reverse('question_detail', args=[question_id]))
+    
+    # Generate QR code
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_L,
         box_size=10,
         border=4,
     )
-    qr.add_data(text)
+    qr.add_data(full_url)
     qr.make(fit=True)
     img = qr.make_image(fill='black', back_color='white')
+
+    # Save the image to a BytesIO stream and prepare it for HTTP response
     buffer = BytesIO()
-    img.save(buffer)
-    filename = 'qr_codes/qr-{}.png'.format(text[:10])
-    filebuffer = File(buffer, name=filename)
-    return filebuffer.url
+    img.save(buffer, format='PNG')
+    buffer.seek(0)
+    
+    # Return the QR code as an image response
+    response = HttpResponse(buffer.getvalue(), content_type='image/png')
+    response['Content-Disposition'] = 'inline; filename="qr_code.png"'
+    return response
