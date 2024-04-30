@@ -6,6 +6,7 @@ from django.db import models
 
 class Question(models.Model):
     text = models.CharField(max_length=200)
+    qr_code_img = models.ImageField(null=True, blank=True, upload_to="qr_codes")
 
     def __str__(self):
         return self.text

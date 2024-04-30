@@ -10,6 +10,7 @@ from django.core.files import File
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponse
+from PIL import Image
 
 
 def teacher_home(request):
@@ -40,24 +41,6 @@ def question_detail(request, question_id):
     qr_code_url = generate_qr_code_url(request, question_id)  # This now points to a static URL
     return render(request, 'question_detail.html', {'question': question, 'qr_code_url': qr_code_url})
 
-# def generate_qr_code_url(data):
-#     # Generate the QR code image
-#     qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4)
-#     qr.add_data(data)
-#     qr.make(fit=True)
-
-#     # Create an in-memory PNG image
-#     img = qr.make_image(fill_color="black", back_color="white")
-
-#     # Save the image to a file or return the URL
-#     # For simplicity, let's just save it to a temporary file
-#     filename = '/path/to/your/static/qr_codes/qr_code.png'  # Specify the path where you want to save the QR code image
-#     img.save(filename)
-
-#     # Assuming your Django project serves static files from a 'static' directory
-#     qr_code_url = '/static/qr_codes/qr_code.png'  # This will be the URL to access the QR code image
-#     return qr_code_url
-
 
 def generate_qr_code_url(request, question_id):
     submission_url = reverse('student_answer', args=[question_id])
@@ -78,8 +61,13 @@ def generate_qr_code_url(request, question_id):
 
     buffer = BytesIO()
     img.save(buffer, format='PNG')
+    # img.save(f"qrcodes/{question_id}.png")
     buffer.seek(0)
-    
+
+    # q = Question.objects.get(pk=question_id)
+    # q.qr_code_img = img
+    # q.save()
+ 
     response = HttpResponse(buffer.getvalue(), content_type='image/png')
     response['Content-Disposition'] = 'inline; filename="qr_code.png"'
     
