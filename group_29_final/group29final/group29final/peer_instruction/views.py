@@ -97,6 +97,7 @@ def view_answers(request):
 
 
 def student_answer(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
     if request.method == 'POST':
         username = request.POST.get('username')
         answer_text = request.POST.get('answer')
@@ -104,7 +105,7 @@ def student_answer(request, question_id):
         answer.save()
         return redirect('thanks_page')
     else:
-        return render(request, 'student_answer.html', {'question_id': question_id})
+        return render(request, 'student_answer.html', {'question': question})
 
 
 def thanks_page(request):
