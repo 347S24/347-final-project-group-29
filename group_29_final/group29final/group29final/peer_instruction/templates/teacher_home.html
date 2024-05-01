@@ -13,6 +13,10 @@
                 <li>
                     {{ question.text}} <a href="{% url 'question_detail' question.id %}">View Question</a>
                 </li>
+                <form action="{% url 'delete_question' question.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                </form>
             {% endfor %}
         {% else %}
             <p>There are no questions stored.</p>

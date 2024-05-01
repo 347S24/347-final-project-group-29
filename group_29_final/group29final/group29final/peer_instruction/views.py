@@ -36,51 +36,57 @@ def add_question(request):
     return render(request, 'add_question.html', {'form': form})
 
 
+def delete_question(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    question.delete()
+    return redirect('teacher_home')
+
+
 def question_detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
-    qr_code_url = generate_qr_code_url(request, question_id)  # This now points to a static URL
-    return render(request, 'question_detail.html', {'question': question, 'qr_code_url': qr_code_url})
+    # qr_code_url = generate_qr_code_url(request, question_id)  # This now points to a static URL , 'qr_code_url': qr_code_url
+    return render(request, 'question_detail.html', {'question': question})
 
 
-def generate_qr_code_url(request, question_id):
-    submission_url = reverse('student_answer', args=[question_id])
-    full_url = request.build_absolute_uri(submission_url)
+# def generate_qr_code_url(request, question_id):
+#     submission_url = reverse('student_answer', args=[question_id])
+#     full_url = request.build_absolute_uri(submission_url)
 
-    print("Full URL:", full_url)
+#     print("Full URL:", full_url)
 
-    # Generate QR code
-    qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=10,
-        border=4,
-    )
-    qr.add_data(full_url)
-    qr.make(fit=True)
-    img = qr.make_image(fill='black', back_color='white')
+#     # Generate QR code
+#     qr = qrcode.QRCode(
+#         version=1,
+#         error_correction=qrcode.constants.ERROR_CORRECT_L,
+#         box_size=10,
+#         border=4,
+#     )
+#     qr.add_data(full_url)
+#     qr.make(fit=True)
+#     img = qr.make_image(fill='black', back_color='white')
 
-    buffer = BytesIO()
-    img.save(buffer, format='PNG')
-    # img.save(f"qrcodes/{question_id}.png")
-    buffer.seek(0)
+#     buffer = BytesIO()
+#     img.save(buffer, format='PNG')
+#     # img.save(f"qrcodes/{question_id}.png")
+#     buffer.seek(0)
 
-    # q = Question.objects.get(pk=question_id)
-    # q.qr_code_img = img
-    # q.save()
+#     # q = Question.objects.get(pk=question_id)
+#     # q.qr_code_img = img
+#     # q.save()
  
-    response = HttpResponse(buffer.getvalue(), content_type='image/png')
-    response['Content-Disposition'] = 'inline; filename="qr_code.png"'
+#     response = HttpResponse(buffer.getvalue(), content_type='image/png')
+#     response['Content-Disposition'] = 'inline; filename="qr_code.png"'
     
-    # filename = 'qr_code.png'
-    # # Specify the path to your desktop folder
-    # desktop_path = os.path.expanduser("~/Desktop")
-    # # Join the desktop path with the filename
-    # filepath = os.path.join(desktop_path, filename)
-    # # Save the image to the specified filepath
-    # img.save(filepath)
-    # print("QR code image saved to:", filepath)
+#     # filename = 'qr_code.png'
+#     # # Specify the path to your desktop folder
+#     # desktop_path = os.path.expanduser("~/Desktop")
+#     # # Join the desktop path with the filename
+#     # filepath = os.path.join(desktop_path, filename)
+#     # # Save the image to the specified filepath
+#     # img.save(filepath)
+#     # print("QR code image saved to:", filepath)
 
-    return response
+#     return response
 
 
 def view_answers(request):
