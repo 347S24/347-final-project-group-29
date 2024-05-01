@@ -1,21 +1,76 @@
-{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Answers</title>
+</head>
+<body>
+    <h1>Answers</h1>
+    <ul>
+        {% for answer in answers %}
+            <li>{{ answer.answer_text }} -- {{ answer.name }}</li>
 
-<!-- {% block title %}
-  {{ user.username }}'s Dashboard
-{% endblock title %} -->
+        {% empty %}
+            <li>No answers have been submitted yet.</li>
+        {% endfor %}
+    </ul>
+    <form id="timerForm">
+      <p> Peer Review Time!</p>
+      <label for="duration">Enter Time for Review (seconds):</label>
+      <input type="number" id="duration" name="time" min="1" required>
+      <button type="button" id="startTimer">Start Timer</button>
+    </form>
+    <div id="timer"></div>
+    <p></p>
+    <a href="{% url 'teacher_home' %}">Back to Teacher Homepage</a>
+    <script>
+     document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded');
 
-{% block content %}
-  <!-- <h1>Welcome, {{ user.username }}</h1> -->
-  <div style="margin-top: 20px;">
-    {% if answers %}
-      {% for answer, count in answers %}
-        <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f8f8f8;">
-          <strong>{{ answer }}</strong> (submitted {{ count }} times)
-        </div>
-      {% endfor %}
-    {% else %}
-      <p>No answers have been submitted yet.</p>
-    {% endif %}
-  </div>
-{% endblock content %}
-<a href="{% url 'teacher_home' %}">Back to Teacher Homepage</a>
+    const timerForm = document.getElementById('timerForm');
+    console.log('Timer form:', timerForm);
+
+    const startTimerBtn = document.getElementById('startTimer');
+    const timerDisplay = document.getElementById('timer');
+
+    let timeLeft;
+
+    startTimerBtn.addEventListener('click', function() {
+        console.log('Start timer button clicked');
+        
+        // Check if timerForm and its elements are defined
+        if (timerForm && timerForm.elements) {
+            console.log('Form elements:', timerForm.elements);
+            
+            // Check if the 'time' input field exists within timerForm elements
+            if ('time' in timerForm.elements) {
+                const timeInput = timerForm.elements['time'].value;
+                timeLeft = parseInt(timeInput);
+                console.log('Time left:', timeLeft);
+            } else {
+                console.error('Input field with name "time" not found.');
+            }
+        } else {
+            console.error('Timer form or its elements not found.');
+        }
+    });
+
+    setInterval(function() {
+        if (timeLeft !== undefined && timeLeft > 0) {
+            timeLeft--;
+            timerDisplay.textContent = formatTime(timeLeft);
+        }
+    }, 1000);
+
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    }
+});
+
+
+
+  </script>
+</body>
+</html>

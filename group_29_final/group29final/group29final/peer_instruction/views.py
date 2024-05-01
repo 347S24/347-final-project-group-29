@@ -89,11 +89,11 @@ def question_detail(request, question_id):
 #     return response
 
 
-def view_answers(request):
+def view_answers(request, question_id):
     # Retrieve all answers from the database
+    question_id = get_object_or_404(Question, pk=question_id)
     answers = Answer.objects.all()
-    context = {'answers': answers}
-    return render(request, 'view_answers.html', context)
+    return render(request, 'view_answers.html', {'answers': answers})
 
 
 def student_answer(request, question_id):
