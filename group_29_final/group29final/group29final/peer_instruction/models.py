@@ -19,7 +19,11 @@ class Question(models.Model):
     
     def get_absolute_url(self):
         """Returns the url to access a particular question instance."""
-        return reverse('student_answer', kwargs={'question_id': self.id})
+        url = reverse('student_answer', args=[self.id])
+        domain = "http://127.0.0.1:8000"
+        full_url = f"{domain}{url}"  # Add the domain and protocol
+        print("Generated URL:", full_url)  # Print the generated URL for debugging
+        return full_url
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

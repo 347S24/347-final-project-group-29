@@ -11,4 +11,5 @@ urlpatterns = [
     path('view-answers/', views.view_answers, name='view_answers'),
     path('question/<int:question_id>/view_answers/', views.view_answers, name='view_answers'),
     path('question/delete/<int:question_id>/', views.delete_question, name='delete_question'),
+    path('thanks/', views.thanks_page, name='thanks_page'),
 ]

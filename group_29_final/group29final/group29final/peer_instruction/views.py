@@ -105,3 +105,7 @@ def student_answer(request, question_id):
         return redirect('thanks_page')
     else:
         return render(request, 'student_answer.html', {'question_id': question_id})
+
+
+def thanks_page(request):
+    return render(request, 'thanks_page.html')
