@@ -22,9 +22,11 @@
 </head>
 <body>
     <h1>Answers</h1>
+    <h2>{{ question.text }}</h2>
     <ul>
+
         {% for answer in answers %}
-            <li>{{ answer.answer_text }} -- {{ answer.name }}</li>
+            <li>{{ answer.text }} -- {{ answer.name }}</li>
         {% empty %}
             <li>No answers have been submitted yet.</li>
         {% endfor %}

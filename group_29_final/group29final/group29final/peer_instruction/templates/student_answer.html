@@ -16,7 +16,7 @@
         {% endif %}
     <h1>Student Answer</h1>
     <h2>{{ question.text }}</h2>
-    <form action="{% url 'student_answer' %}" method="post">
+    <form action="{% url 'student_answer'  question.id %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Submit Answer">
