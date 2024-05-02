@@ -7,10 +7,11 @@ from django.urls import path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 
+
 from group29final.peer_instruction import views
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
+    # path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
         "about/",
         TemplateView.as_view(template_name="pages/about.html"),
@@ -21,8 +22,10 @@ urlpatterns = [
     # User management
     path("users/", include("group29final.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
+    # path("", TemplateView.as_view(template_name="home.html")),
+
     # Your stuff: custom urls includes go here
-    path('home', views.teacher_home, name='teacher_home'),
+    path('', views.teacher_home, name='teacher_home'),
     path('add/', views.add_question, name='add_question'),
     path("peer-instruction/", include("group29final.peer_instruction.urls")),
 
