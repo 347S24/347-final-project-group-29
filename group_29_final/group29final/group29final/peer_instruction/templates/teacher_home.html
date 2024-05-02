@@ -1,10 +1,51 @@
+
+{% load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Teacher Homepage</title>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+
+    <!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
 </head>
 <body>
+    <nav>
+        <ul>
+          <li>
+            <div class="home-icon">
+              <div class="roof">
+                <div class="roof-edge"></div>
+              </div>
+              <div class="front"></div>
+            </div>
+          </li>
+          <li>
+            <div class="about-icon">
+              <div class="head">
+                <div class="eyes"></div>
+                <div class="beard"></div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="work-icon">
+              <div class="paper"></div>
+              <div class="lines"></div>
+              <div class="lines"></div>
+              <div class="lines"></div>
+            </div>
+          </li>
+          <li>
+            <div class="mail-icon">
+              <div class="mail-base">
+                <div class="mail-top"></div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <section>
     <h1>Welcome, Teacher!</h1>
     <h2>Your Questions:</h2>
     <ul>
@@ -23,5 +64,6 @@
         {% endif %}
     </ul>
     <a href="{% url 'add_question' %}">Add Question</a>
+</section>
 </body>
 </html>

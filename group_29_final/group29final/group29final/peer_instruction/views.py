@@ -59,6 +59,7 @@ def view_answers(request, question_id):
 def student_answer(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     if request.method == 'POST':
+        print("\n\n\n\n\n anwser submitted by post")
         form = AnswerForm(request.POST)
         if form.is_valid():
             form.instance.question = question
@@ -68,6 +69,7 @@ def student_answer(request, question_id):
         else:
             messages.error(request, 'Please fill out all required fields.')
     else:
+        print("\n\n\n\n\n anwser submitted not post")
         form = AnswerForm()
     return render(request, 'student_answer.html', {'form': form, 'question': question})
 
