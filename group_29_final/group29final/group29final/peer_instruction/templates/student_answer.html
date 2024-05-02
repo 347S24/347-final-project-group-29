@@ -9,14 +9,16 @@
     <title>Student Answer</title>
 </head>
 <body>
+    {% if messages %}
+            {% for message in messages %}
+                <div>{{ message }}</div>
+            {% endfor %}
+        {% endif %}
     <h1>Student Answer</h1>
     <h2>{{ question.text }}</h2>
     <form action="{% url 'thanks_page' %}" method="post">
         {% csrf_token %}
-        <label for="username">Name:</label>
-        <input type="text" id="username" name="username" required><br>
-        <label for="answer">Answer:</label>
-        <input type="text" id="answer" name="answer" required><br>
+        {{ form.as_p }}
         <input type="submit" value="Submit Answer">
     </form>
     <p>Answer the question above. Once you have answered the question you can exit the page.</p>

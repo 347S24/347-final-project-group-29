@@ -49,6 +49,7 @@ class Question(models.Model):
 class Answer(models.Model):
     name = models.CharField(max_length=150, blank=True)  # Add this line
     text = models.TextField()
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

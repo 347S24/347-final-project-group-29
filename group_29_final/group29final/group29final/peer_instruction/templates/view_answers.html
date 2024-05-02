@@ -23,6 +23,7 @@
     <div id="timer"></div>
     <p></p>
     <a href="{% url 'teacher_home' %}">Back to Teacher Homepage</a>
+    <a href="{% url 'question_detail' question.id %}">Back to Question Detail</a>
     <script>
      document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded');
