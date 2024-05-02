@@ -3,13 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>View Answers</title>
+    <style>
+        #timerContainer {
+            border: 2px solid #333;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            font-family: monospace;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        #timerDisplay {
+            color: #ff0000;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <h1>Answers</h1>
     <ul>
         {% for answer in answers %}
             <li>{{ answer.answer_text }} -- {{ answer.name }}</li>
-
         {% empty %}
             <li>No answers have been submitted yet.</li>
         {% endfor %}
@@ -20,7 +35,9 @@
       <input type="number" id="duration" name="time" min="1" required>
       <button type="button" id="startTimer">Start Timer</button>
     </form>
-    <div id="timer"></div>
+    <div id="timerContainer">
+        <div id="timerDisplay"></div>
+    </div>
     <p></p>
     <a href="{% url 'teacher_home' %}">Back to Teacher Homepage</a>
     <a href="{% url 'question_detail' question.id %}">Back to Question Detail</a>
@@ -32,7 +49,7 @@
     console.log('Timer form:', timerForm);
 
     const startTimerBtn = document.getElementById('startTimer');
-    const timerDisplay = document.getElementById('timer');
+    const timerDisplay = document.getElementById('timerDisplay');
 
     let timeLeft;
 
@@ -70,8 +87,6 @@
     }
 });
 
-
-
-  </script>
+</script>
 </body>
 </html>
