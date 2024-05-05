@@ -157,6 +157,11 @@
         <div id="timerDisplay"></div>
     </div>
     <p></p>
+    <form method="post" action="{% url 'clear_answers' question.id %}">
+      {% csrf_token %}
+      <button type="submit">Clear Answers</button>
+  </form>
+  
     <div class="footer-links">
     <a href="{% url 'teacher_home' %}">Back to Teacher Homepage</a>
     <a href="{% url 'question_detail' question.id %}">Back to Question Detail</a>
@@ -207,6 +212,47 @@
     }
 });
 
+function clearAnswers() {
+    // Send an AJAX POST request to the Django view responsible for clearing the answers
+    fetch('/clear_answers/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken') // Include CSRF token
+        },
+        body: JSON.stringify({}) // No data needed for clearing answers
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Answers cleared successfully');
+            // Optionally update the content on the page here
+        } else {
+            console.error('Failed to clear answers');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Check if the cookie contains the specified name
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// Add an event listener to call the clearAnswers function when the "Clear Answers" button is clicked
+document.getElementById('clearAnswersBtn').addEventListener('click', clearAnswers);
 </script>
 </body>
 </html>

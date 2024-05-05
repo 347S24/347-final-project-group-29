@@ -10,7 +10,7 @@ from io import BytesIO
 from django.core.files import File
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from PIL import Image
 
 
@@ -76,3 +76,12 @@ def student_answer(request, question_id):
 
 def thanks_page(request):
     return render(request, 'thanks_page.html')
+
+
+def clear_answers(request, question_id):
+    if request.method == 'POST':
+        # Delete or clear answers logic here
+        # For example, to clear all answers:
+        Answer.objects.all().delete()
+    return redirect('view_answers', args=[question_id])
+

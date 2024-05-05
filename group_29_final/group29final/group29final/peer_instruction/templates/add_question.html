@@ -61,6 +61,27 @@
             text-align: center;
             color: #666;
         }
+        .footer-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 10px;
+            text-decoration: none;
+            color: #007bff;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
     </style>
 </head>
 <body>
@@ -72,8 +93,9 @@
         <input type="submit" value="Submit">
     </form>
 
-    <p>This is where the questions will be added. Teachers will be able to make questions and add them.
-        This is the screen where that will happen.
-    </p>
+    <div class="footer-links">
+        <a href="{% url 'teacher_home' %}">Back to Teacher Homepage</a>
+        </div>
+
 </body>
 </html>
