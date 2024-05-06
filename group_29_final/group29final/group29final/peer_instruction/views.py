@@ -84,4 +84,3 @@ def clear_answers(request, question_id):
         # For example, to clear all answers:
         Answer.objects.all().delete()
     return redirect('view_answers', args=[question_id])
-
