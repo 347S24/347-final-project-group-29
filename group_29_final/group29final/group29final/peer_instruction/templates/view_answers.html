@@ -1,270 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>View Answers</title>
-    <style>
+  <meta charset="UTF-8">
+  <title>View Answers</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-        }
+    h1 {
+      color: #333;
+      margin-top: 50px;
+      text-align: center;
+    }
 
-        h1 {
-            color: #333;
-            margin-top: 50px;
-            text-align: center;
-        }
+    h2 {
+      color: #666;
+      text-align: center;
+    }
 
-        h2 {
-            color: #666;
-            text-align: center;
-        }
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 20px auto;
+      max-width: 400px;
+    }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 20px auto;
-            max-width: 400px;
-        }
+    li {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
 
-        li {
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    p {
+      text-align: center;
+      color: #666;
+    }
 
-        p {
-            text-align: center;
-            color: #666;
-        }
+    form.timer-form {
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border: 2px solid #333;
+      border-radius: 5px;
+    }
 
-        form {
-            max-width: 400px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border: 2px solid #333;
-            border-radius: 5px;
-        }
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #333;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 10px;
-            color: #333;
-        }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
 
-        input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
+    button[type="button"] {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-        button[type="button"] {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    button[type="button"]:hover {
+      background-color: #0056b3;
+    }
 
-        button[type="button"]:hover {
-            background-color: #0056b3;
-        }
+    a {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #007bff;
+      border: 2px solid #007bff;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
-        a {
-            display: inline-block;
-            padding: 10px 20px;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #007bff;
-            border: 2px solid #007bff;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+    a:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
 
-        a:hover {
-            background-color: #007bff;
-            color: #fff;
-        }
+    .footer-links {
+      text-align: center;
+      margin-top: 20px;
+    }
 
-        .footer-links {
-            text-align: center;
-            margin-top: 20px;
-        }
+    .footer-links a {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 0 10px;
+      text-decoration: none;
+      color: #007bff;
+      border: 2px solid #007bff;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
-        .footer-links a {
-            display: inline-block;
-            padding: 10px 20px;
-            margin: 0 10px;
-            text-decoration: none;
-            color: #007bff;
-            border: 2px solid #007bff;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+    .footer-links a:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
 
-        .footer-links a:hover {
-            background-color: #007bff;
-            color: #fff;
-        }
-      
-        #timerContainer {
-            border: 2px solid #333;
-            padding: 10px;
-            border-radius: 5px;
-            display: flex; /* Use flexbox */
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
-            font-family: monospace;
-            font-size: 34px;
-            text-align: center;
-            max-width: 75px;
-            margin-left: 380px;
-        }
+    #timerContainer {
+      border: 2px solid #333;
+      padding: 10px;
+      border-radius: 5px;
+      display: flex;
+      /* Use flexbox */
+      justify-content: center;
+      /* Center horizontally */
+      align-items: center;
+      /* Center vertically */
+      font-family: monospace;
+      font-size: 34px;
+      text-align: center;
+      max-width: 100px;
+      margin: 20px auto;
+      /* Center the timer container horizontally and add some top margin */
+    }
 
-        #timerDisplay {
-            color: #ff0000;
-            font-weight: bold;
-        }
+    #clearAnswersBtn {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #ff0000;
+      background-color: transparent;
+      border: 2px solid #ff0000;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      margin-left: auto;
+      margin-right: auto;
+      /* Center vertically */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-    </style>
+    #clearAnswersBtn:hover {
+      background-color: #ff1900;
+      color: #fff;
+    }
+
+
+    #timerDisplay {
+      color: #ff0000;
+      font-weight: bold;
+    }
+  </style>
 </head>
-<body>
-    <h1>Answers</h1>
-    <h2>{{ question.text }}</h2>
-    <ul>
 
-        {% for answer in answers %}
-            <li>{{ answer.text }} -- {{ answer.name }}</li>
-        {% empty %}
-            <li>No answers have been submitted yet.</li>
-        {% endfor %}
-    </ul>
-    <form id="timerForm">
-      <p> Peer Review Time!</p>
-      <label for="duration">Enter Time for Review (seconds):</label>
-      <input type="number" id="duration" name="time" min="1" required>
-      <button type="button" id="startTimer">Start Timer</button>
-    </form>
-    <div id="timerContainer" style="display: none;">
-      <div id="timerDisplay"></div>
+<body>
+  <h1>Answers</h1>
+  <h2>{{ question.text }}</h2>
+  <ul>
+
+    {% for answer in answers %}
+    <li>{{ answer.text }} -- {{ answer.name }}</li>
+    {% empty %}
+    <li>No answers have been submitted yet.</li>
+    {% endfor %}
+  </ul>
+  <form id="timerForm" class="timer-form">
+    <p> Peer Review Time!</p>
+    <label for="duration">Enter Time for Review (seconds):</label>
+    <input type="number" id="duration" name="time" min="1" required>
+    <button type="button" id="startTimer">Start Timer</button>
+  </form>
+  <div id="timerContainer" style="display: none;">
+    <div id="timerDisplay"></div>
   </div>
-  
-    <p></p>
-    <div id ="clear"> 
-      <form  method="post" action="{% url 'clear_answers' question.id %}">
-        {% csrf_token %}
-        <button type="submit">Clear Answers</button>
-      </form>
-    </div>
-  
-    <div class="footer-links">
+  <div id="clear">
+    <form method="post" action="{% url 'clear_answers' question.id %}">
+      {% csrf_token %}
+      <button type="submit" id="clearAnswersBtn">Clear Answers</button>
+    </form>
+  </div>
+
+  <div class="footer-links">
     <a href="{% url 'teacher_home' %}">Back to Teacher Homepage</a>
     <a href="{% url 'question_detail' question.id %}">Back to Question Detail</a>
-    </div>
-    <script>
-     document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded');
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      console.log('DOM loaded');
 
-    const timerForm = document.getElementById('timerForm');
-    console.log('Timer form:', timerForm);
+      const timerForm = document.getElementById('timerForm');
+      console.log('Timer form:', timerForm);
 
-    const startTimerBtn = document.getElementById('startTimer');
-    const timerDisplay = document.getElementById('timerDisplay');
+      const startTimerBtn = document.getElementById('startTimer');
+      const timerDisplay = document.getElementById('timerDisplay');
 
-    let timeLeft;
+      let timeLeft;
 
-    startTimerBtn.addEventListener('click', function() {
-    console.log('Start timer button clicked');
-    
-    // Check if timerForm and its elements are defined
-    if (timerForm && timerForm.elements) {
-        console.log('Form elements:', timerForm.elements);
-        
-        // Check if the 'time' input field exists within timerForm elements
-        if ('time' in timerForm.elements) {
+      startTimerBtn.addEventListener('click', function () {
+        console.log('Start timer button clicked');
+
+        // Check if timerForm and its elements are defined
+        if (timerForm && timerForm.elements) {
+          console.log('Form elements:', timerForm.elements);
+
+          // Check if the 'time' input field exists within timerForm elements
+          if ('time' in timerForm.elements) {
             const timeInput = timerForm.elements['time'].value;
             timeLeft = parseInt(timeInput);
             console.log('Time left:', timeLeft);
 
             // Show the timer container
             document.getElementById('timerContainer').style.display = 'block';
-        } else {
+          } else {
             console.error('Input field with name "time" not found.');
+          }
+        } else {
+          console.error('Timer form or its elements not found.');
         }
-    } else {
-        console.error('Timer form or its elements not found.');
-    }
-});
+      });
 
 
-    setInterval(function() {
+      setInterval(function () {
         if (timeLeft !== undefined && timeLeft > 0) {
-            timeLeft--;
-            timerDisplay.textContent = formatTime(timeLeft);
+          timeLeft--;
+          timerDisplay.textContent = formatTime(timeLeft);
         }
-    }, 1000);
+      }, 1000);
 
-    function formatTime(seconds) {
+      function formatTime(seconds) {
         const minutes = Math.floor(seconds / 60);
         const remainingSeconds = seconds % 60;
         return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
-    }
-});
+      }
+    });
 
-function clearAnswers() {
-    // Send an AJAX POST request to the Django view responsible for clearing the answers
-    fetch('/clear_answers/', {
+    function clearAnswers() {
+      // Send an AJAX POST request to the Django view responsible for clearing the answers
+      fetch('/clear_answers/', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken') // Include CSRF token
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken') // Include CSRF token
         },
         body: JSON.stringify({}) // No data needed for clearing answers
-    })
-    .then(response => {
-        if (response.ok) {
+      })
+        .then(response => {
+          if (response.ok) {
             console.log('Answers cleared successfully');
             // Optionally update the content on the page here
-        } else {
+          } else {
             console.error('Failed to clear answers');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
 
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
         const cookies = document.cookie.split(';');
         for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Check if the cookie contains the specified name
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
+          const cookie = cookies[i].trim();
+          // Check if the cookie contains the specified name
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
         }
+      }
+      return cookieValue;
     }
-    return cookieValue;
-}
 
-// Add an event listener to call the clearAnswers function when the "Clear Answers" button is clicked
-document.getElementById('clearAnswersBtn').addEventListener('click', clearAnswers);
-</script>
+    // Add an event listener to call the clearAnswers function when the "Clear Answers" button is clicked
+    document.getElementById('clearAnswersBtn').addEventListener('click', clearAnswers);
+  </script>
 </body>
+
 </html>
