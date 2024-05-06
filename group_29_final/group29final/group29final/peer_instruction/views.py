@@ -25,7 +25,7 @@ def teacher_home(request):
 
 def add_question(request):
     if request.method == 'POST':
-        form = QuestionForm(request.POST)
+        form = QuestionForm(request.POST, request.FILES)
         if form.is_valid():
             print('valid form')
             form.save()
@@ -52,7 +52,7 @@ def question_detail(request, question_id):
 def view_answers(request, question_id):
     # Retrieve all answers from the database
     question = get_object_or_404(Question, pk=question_id)
-    answers = Answer.objects.all()
+    answers = Answer.objects.filter(question=question)
     return render(request, 'view_answers.html', {'question': question, 'answers': answers})
 
 
@@ -82,5 +82,5 @@ def clear_answers(request, question_id):
     if request.method == 'POST':
         # Delete or clear answers logic here
         # For example, to clear all answers:
-        Answer.objects.all().delete()
-    return redirect('view_answers', args=[question_id])
+        Answer.objects.filter(question_id=question_id).delete()
+    return redirect('view_answers', question_id=question_id)

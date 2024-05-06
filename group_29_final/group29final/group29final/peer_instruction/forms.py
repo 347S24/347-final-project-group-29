@@ -3,9 +3,10 @@ from .models import Question, Answer
 
 
 class QuestionForm(forms.ModelForm):
+    image = forms.ImageField(required=False)
     class Meta:
         model = Question
-        fields = ['text']
+        fields = ['text', 'image']
 
 
 class AnswerForm(forms.ModelForm):

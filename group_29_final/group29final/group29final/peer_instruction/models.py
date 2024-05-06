@@ -10,9 +10,15 @@ from django.conf import settings
 # Create your models here.
 
 
+def generate_image_filename(instance, filename):
+    # Generate a unique filename for the image based on the question ID
+    return f"question_images/{instance.id}/{filename}"
+    
+
 class Question(models.Model):
     text = models.CharField(max_length=200)
     qr_code_img = models.ImageField(null=True, blank=True, upload_to="qr_codes")
+    image = models.ImageField(upload_to=generate_image_filename, blank=True, null=True)
 
     def __str__(self):
         return self.text

@@ -42,6 +42,11 @@
             text-decoration: none;
         }
 
+        img.question-image {
+            width: 300px; /* Adjust the width as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
+
         a:hover {
             background-color: #0056b3;
         }
@@ -50,6 +55,9 @@
 <body>
     <h1>Question Detail</h1>
     <h2>{{ question.text }}</h2>
+    {% if question.image %}
+        <img src="{{ question.image.url }}" alt="Image for this question" class="question-image">
+    {% endif %}
     <img src="{{ question.qr_code_img.url }}" alt="QR Code for this question" style="width:150px;height:150px;">
     <a href="{% url 'view_answers' question.id %}">View Answers</a>
     <a href="{% url 'teacher_home' %}">Back to Teacher Homepage</a>

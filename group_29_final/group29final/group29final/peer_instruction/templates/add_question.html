@@ -86,10 +86,12 @@
 </head>
 <body>
     <h1>Add New Question</h1>
-    <form action="{% url 'add_question' %}" method="post">
+    <form action="{% url 'add_question' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <label for="question_text">Question:</label><br>
         <input type="text" id="question_text" name="text"><br>
+        <label for="question_image">Image:</label><br>
+        <input type="file" id="image" name="image"><br>
         <input type="submit" value="Submit">
     </form>
 
