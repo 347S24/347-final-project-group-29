@@ -25,7 +25,7 @@ urlpatterns = [
     # path("", TemplateView.as_view(template_name="home.html")),
 
     # Your stuff: custom urls includes go here
-    path('home/', views.teacher_home, name='teacher_home'),
+    path('', views.teacher_home, name='teacher_home'),
     path('add/', views.add_question, name='add_question'),
     path("peer-instruction/", include("group29final.peer_instruction.urls")),
 
