@@ -302,3 +302,5 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+ALLOWED_HOSTS = ["142.93.64.74", "localhost"]
