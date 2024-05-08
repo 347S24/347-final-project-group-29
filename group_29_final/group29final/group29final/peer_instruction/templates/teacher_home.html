@@ -98,6 +98,18 @@
             display: flex;
         }
 
+        .hello {
+            border: transparent;
+        }
+
+        .hi {
+            border: transparent;
+        }
+
+        .list_item {
+            border: transparent;
+        }
+
     </style>
 </head>
 <body>
@@ -114,17 +126,17 @@
         <ul>
             {% if questions %}
                 {% for question in questions %}
-                    <li>
+                    <li class="list_item">
                         <div class="question">
                         <div class="question_text"><p>{{ question.text}}</p></div>
                         <div class="question_view"><a href="{% url 'question_detail' question.id %}">View Question</a></div>
                         <div class="question_delete">
-                        <form action="{% url 'delete_question' question.id %}" method="post" style="display: inline;">
+                        <form action="{% url 'delete_question' question.id %}" method="post" style="display: inline;" class="hi">
                             {% csrf_token %}
-                            <button type="submit">Delete</button>
+                            <button class= "hello" type="submit">Delete</button>
                         </form>
                         </div>
-                        </div>
+                    </div>
                     </li>
 
                 {% endfor %}
@@ -136,4 +148,3 @@
     </section>
 </body>
 </html>
-
