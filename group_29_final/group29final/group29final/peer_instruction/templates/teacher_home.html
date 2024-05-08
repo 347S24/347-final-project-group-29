@@ -29,9 +29,9 @@
         }
 
         .navbar ul li {
-            
+
             display: block;
-            
+
         }
 
         .navbar ul li a {
@@ -43,7 +43,7 @@
             margin-top: 0;
         }
 
-        
+
 
         .container {
             max-width: 800px;
@@ -67,9 +67,8 @@
         .question {
             border: 1px solid #ccc;
             border-radius: 5px;
-            margin: auto;
+            margin-bottom: 10px;
             padding: 10px;
-            text-align: center;
         }
 
         .question_text {
@@ -94,28 +93,15 @@
             color: #3c763d;
         }
 
-        .question_view li {
+        .container li {
             display: flex;
-            text-align: center;
-            margin-left: 27%;
         }
 
-        .question_view {
-            text-align: center; /* Center the list items horizontally */
-        }
-
-        .question_view li {
-            
-             /* Add margin for spacing between list items */
-            text-align: center;
-        }
-        
     </style>
 </head>
 <body>
     <nav class="navbar">
-        <ul>
-            <li><a href="{% url 'teacher_home' %}">Home</a></li>
+@@ -16,24 +107,32 @@
             <li><a href="{% url 'add_question' %}">Add Question</a></li>
         </ul>
     </nav>
@@ -123,7 +109,7 @@
         <h1>Welcome, Teacher!</h1>
         <h2>Your Questions:</h2>
         <div>
-        <ul class="question_view">
+        <ul>
             {% if questions %}
                 {% for question in questions %}
                     <li>
@@ -138,7 +124,7 @@
                         </div>
                         </div>
                     </li>
-                    
+
                 {% endfor %}
             {% else %}
                 <p>There are no questions stored.</p>
