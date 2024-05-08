@@ -11,7 +11,6 @@ from django.views.generic import TemplateView
 from group29final.peer_instruction import views
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
         "about/",
         TemplateView.as_view(template_name="pages/about.html"),
